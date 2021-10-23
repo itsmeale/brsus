@@ -6,7 +6,7 @@ here = path.abspath(path.dirname(__file__))
 
 setup(
     name="brsus",
-    version="0.0.1",
+    version="0.0.2-ALPHA",
     description="A tool to download data from datasus.",
     author="Ale Farias",
     license="MIT",
