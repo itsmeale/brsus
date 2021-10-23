@@ -27,6 +27,9 @@ Create a github repository and add the remote origin to do yout project version 
 ## How to use
 ...
 
+## Repo navigation
+![Visualization of this repo](./diagram.svg)
+
 
 ## How to contribute
 Install all project dependencies (prod and dev)
