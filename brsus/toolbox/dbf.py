@@ -37,5 +37,5 @@ class DBC:
 
 
 if __name__ == "__main__":
-    my_dbc = DBC("data/DOSP2018.DBC")
-    my_dbc.to_parquet("data/dataset.csv")
+    my_dbc = DBC("data/dataset2018.DBC")
+    my_dbc.to_parquet("data/dataset2018.parquet")
