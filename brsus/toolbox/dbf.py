@@ -1,28 +1,41 @@
 import csv
 import subprocess
 
+import pandas as pd
 from dbfread import DBF
 
 
-def blast_decompresser(input_file: str, output_file: str):
-    subprocess.call(["./thirdy_part/blast-dbf", input_file, output_file])
+class DBC:
+    """Encapsulate the behavior of DBC decompression,
+    DBC conversion to CSV and DBC conversion to parquet.
+    """
 
+    def __init__(self, file_name: str):
+        self.file_name = file_name
 
-def _dbf_data(input_file: str):
-    yield from DBF(input_file)
+    def decompress(self, destination: str):
+        subprocess.call(["./brsus/thirdy_part/blast-dbf", self.file_name, destination])
 
+    def _dbf_data(self, dbf_file_name):
+        yield from DBF(dbf_file_name)
 
-def dbf2csv(input_file: str, output_file: str):
-    data = _dbf_data(input_file)
+    def to_csv(self, destination: str):
+        decompressed_dbf = f"{''.join(destination.split(r'.')[:-1])}.DBF"
+        self.decompress(decompressed_dbf)
+        data = self._dbf_data(decompressed_dbf)
 
-    with open(output_file, "w") as f:
-        header = next(data)
-        writer = csv.DictWriter(f, fieldnames=header.keys())
-        writer.writeheader()
-        writer.writerow(header)
-        writer.writerows(data)
+        with open(destination, "w") as f:
+            header = next(data)
+            writer = csv.DictWriter(f, fieldnames=header.keys())
+            writer.writeheader()
+            writer.writerow(header)
+            writer.writerows(data)
+
+    def to_parquet(self, destination: str):
+        self.to_csv(destination)
+        pd.read_csv(destination).to_parquet(destination, engine="pyarrow")
 
 
 if __name__ == "__main__":
-    blast_decompresser("data/DOSP2019.DBC", "data/DECOMPRESSED_DOSP2019.DBF")
-    dbf2csv("data/DECOMPRESSED_DOSP2019.DBF", "data/DOSP2019.csv")
+    my_dbc = DBC("data/dataset2018.DBC")
+    my_dbc.to_parquet("data/dataset2018.parquet")

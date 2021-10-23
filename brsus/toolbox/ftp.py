@@ -10,9 +10,14 @@ class FTPWrapper:
         self.ftp.login()
         self.dataset = dataset
 
-    def download(self):
+    def download(self, destination: str = None):
         cwd, file_name = self.dataset.cwd_and_file_name()
+        file_destination = file_name
         self.ftp.cwd(cwd)
 
-        with open(file_name, "wb") as f:
+        print(destination)
+        if destination:
+            file_destination = destination
+
+        with open(file_destination, "wb") as f:
             self.ftp.retrbinary(f"RETR {file_name}", f.write)
