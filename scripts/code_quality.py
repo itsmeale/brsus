@@ -18,7 +18,7 @@ def do_code_formatting():
 
 
 def linter():
-    os.system("pylama ./brsus/ ./tests/")
+    os.system("pylama ./brsus/ ./tests/ --skip brsus/**/__init__.py")
 
 
 def run_tests():

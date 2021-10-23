@@ -1,6 +1,6 @@
-from brsus.toolbox.ftp import FTPWrapper
-from brsus.sim.dataset import DatasetSIM
 from brsus import DATASUS_FTP_SERVER
+from brsus.sim.dataset import DatasetSIM
+from brsus.toolbox.ftp import FTPWrapper
 
 
 def download(state: str, year: int) -> None:

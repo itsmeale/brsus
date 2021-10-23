@@ -1,6 +1,7 @@
 import csv
-from dbfread import DBF
 import subprocess
+
+from dbfread import DBF
 
 
 def blast_decompresser(input_file: str, output_file: str):

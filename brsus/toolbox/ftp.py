@@ -4,7 +4,6 @@ from brsus.interfaces.dataset import DatasetInterface
 
 
 class FTPWrapper:
-
     def __init__(self, url: str, dataset: DatasetInterface):
         self.url = url
         self.ftp = FTP(url)
