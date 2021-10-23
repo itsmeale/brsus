@@ -14,7 +14,7 @@ class DBC:
         self.file_name = file_name
 
     def decompress(self, destination: str):
-        subprocess.call(["./thirdy_part/blast-dbf", self.file_name, destination])
+        subprocess.call(["./brsus/thirdy_part/blast-dbf", self.file_name, destination])
 
     def _dbf_data(self, dbf_file_name):
         yield from DBF(dbf_file_name)
